@@ -6,6 +6,21 @@
 
 TON.Browser = {
 
+    // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
+    isOpera: !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0,
+
+    //Feature detection. Firefox 1.0+
+    isFirefox: typeof InstallTrigger !== 'undefined',
+
+    //Feature detection. At least Safari 3+: "[object HTMLElementConstructor]"
+    isSafari: Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0,
+
+    //Feature detection. Chrome 1+
+    isChrome: !!window.chrome && !this.isOpera,
+
+    //Feature detection. At least IE6
+    isIE: false || !!document.documentMode
+
 }
 
 TON.Device = {
@@ -40,10 +55,15 @@ TON.Device = {
     },
 
     //apple device
-    isAppleDevice:function(){
+    isAppleDevice: function() {
         return this.isIPHONE() || this.isIPOD() || this.isIPAD();
     },
     
+    //android device
+    isAndroidDevice: function() {
+        return navigator.userAgent.match(/Android/i);
+    }
+
     //navigator.platform iPhone device return "iPhone", iPad device return "iPad"
     //navigator.platform Linux and Android device will return "Linux aarch64"
     //navigator.platform Windows will return "Win32"
