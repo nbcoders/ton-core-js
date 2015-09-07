@@ -4,6 +4,8 @@
  * @contacts: Young, Cherishope
  */
 
+//Successfully tested in: Firefox 0.8 - 41. Chrome 1.0 - 45. Opera 8.0 - 31. Safari 3.0 - 8. IE 6 - 11 (NOT Edge)
+//infomation from http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
 TON.Browser = {
 
     // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
@@ -62,7 +64,7 @@ TON.Device = {
     //android device
     isAndroidDevice: function() {
         return navigator.userAgent.match(/Android/i);
-    }
+    },
 
     //navigator.platform iPhone device return "iPhone", iPad device return "iPad"
     //navigator.platform Linux and Android device will return "Linux aarch64"
