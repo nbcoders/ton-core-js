@@ -21,7 +21,47 @@ TON.Browser = {
     isChrome: !!window.chrome && !this.isOpera,
 
     //Feature detection. At least IE6
-    isIE: false || !!document.documentMode
+    isIE: false || !!document.documentMode,
+
+    isIE8: {},
+
+    isIE7: {},
+
+    getIEVersion: function () {
+
+        var d = document.createElement("div"),
+            v = 0,
+            a;
+
+        d.setAttribute("className", "t");
+        d.innerHTML = "<i>i</i><a href='/a'>a</a>";
+        a = d.getElementsByTagName("a")[0];
+        a.style.cssText = "top:1px;float:left;opacity:.5";
+
+        //if it is IE
+        if (!this.isIE) {
+            return v;
+        }
+
+        if (document.documentMode == 11) {
+            v = 11;
+        } else if ('WebSocket' in window) {
+            v = 10;
+        } else if ('HTMLElement' in window) {
+            v = 9;
+        } else if (d.firstChild.nodeType !== 3 && d.className !== "t") {
+            v = 8;
+        } else if (d.className === "t" && document.createElement("nav").cloneNode(true)) {
+            v = 7;
+        } else {
+            v = 6;
+            //fix IE6 background image can not cache problem
+            document.execCommad('backgroundimagecache', false, false);
+        }
+
+        return v;
+
+    }
 
 }
 
