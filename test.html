@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="js/ton.core.date.js"></script>
+        <script src="js/ton.core.md5.js"></script>
+    </head>
+
+    <body>
+        <script>
+            document.writeln(Ton.Date.format("2015-09-12 21:01:22", "YYYY-MM-DD") + "<br/>");
+            document.writeln(Ton.Date.format("2015-09-12 21:01:22", "YYYY-MM-DD hh:mm:ss") + "<br/>");
+            document.writeln(Ton.Date.getDate("YYYY-MM-DD hh:mm:ss") + "<br/>");
+            document.writeln(Ton.Date.getDate() + "<br/>");
+            document.writeln(Ton.Md5("abc") + "<br/>");
+            document.writeln(Ton.Md5("by701","lower") + "<br/>");
+            document.writeln(Ton.Md5("young","upper") + "<br/>");
+        </script>
+    </body>
+
+</html>
