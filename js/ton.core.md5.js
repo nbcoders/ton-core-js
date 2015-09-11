@@ -225,7 +225,7 @@
         }
         return str;
     }
-    var md5 = function(str, abc) {
+    var M = function(str, abc) {
         var str = hex_md5(str);
         if (abc === "lower") {
             str = str.toLocaleLowerCase();
@@ -235,6 +235,6 @@
         }
         return str;
     };
-    ton.Md5 = md5;
+    ton.MD5 = M;
     window.Ton = ton;
 })(typeof Ton !== "undefined" ? Ton : {});
