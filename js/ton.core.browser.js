@@ -23,10 +23,39 @@ TON.Browser = {
     //Feature detection. At least IE6
     isIE: false || !!document.documentMode,
 
-    isIE8: {},
+    /**
+     * @name IE8 and earlier, leadingWhitespace
+     * @description {Boolean} IE8- 会去掉开头的空格，所以 nodeType 不是 3（文本），即 IE8 & IE8- 中返回 true
+     * @const
+     */
+    isIE8e: (function () {
+        var d = document.createElement("div");
+        d.innerHTML = "   <i>i</i>";
+        return d.firstChild.nodeType !== 3;
+    })(),
 
-    isIE7: {},
+    /**
+     * @name IE7 and earlier, getSetAttribute
+     * @description {Boolean} 利用设置 class 来测试 get/setAttribute('class', 'class') 方法是否被支持，
+     *     在 ie6/7 中不支持（使用 get/setAttribute('className', 'class')）
+     *     因此 ie6/7 中会返回 true，其他浏览器中返回 false
+     * @const
+     */
+    isIE7e: (function () {
+        var d = document.createElement("div");
+        d.setAttribute("className", "t");
+        return d.className === "t";
+    })(),
 
+    /**
+     * @name html5Clone
+     * @description {Boolean} 判断创建一个 HTML5 元素是否会出现问题
+     *     IE6 为 false
+     * @const
+     */
+    isIE6: document.createElement("nav").cloneNode( true ).outerHTML === "<:nav></:nav>",
+
+    //get IE version
     getIEVersion: function () {
 
         var d = document.createElement("div"),
@@ -35,8 +64,6 @@ TON.Browser = {
 
         d.setAttribute("className", "t");
         d.innerHTML = "<i>i</i><a href='/a'>a</a>";
-        a = d.getElementsByTagName("a")[0];
-        a.style.cssText = "top:1px;float:left;opacity:.5";
 
         //if it is IE
         if (!this.isIE) {
@@ -49,9 +76,9 @@ TON.Browser = {
             v = 10;
         } else if ('HTMLElement' in window) {
             v = 9;
-        } else if (d.firstChild.nodeType !== 3 && d.className !== "t") {
+        } else if (this.isIE8e && !this.isIE7e) {
             v = 8;
-        } else if (d.className === "t" && document.createElement("nav").cloneNode(true)) {
+        } else if (this.isIE7e && !this.isIE6) {
             v = 7;
         } else {
             v = 6;
