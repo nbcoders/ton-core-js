@@ -1,0 +1,1 @@
+copy ton.core.*.js  ..\ton.core.js
