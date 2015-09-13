@@ -1,7 +1,7 @@
 ﻿/**
- * JavaScript Device tools of Ton
+ * JavaScript moduleName tools of Ton
  * power by[young,by701]
- * function call：Ton.Device.xxx
+ * function call：Ton.moduleName.xxx
  * 1,Method comment
  * func1(params);
  */
