@@ -3,7 +3,7 @@
  * @todo 以下方法计划将全部改写。从UA迁移至特征检测
  * @contacts: Young, Cherishope
  */
-(function (__ton) {
+(function (__ton, window) {
 
     var UA = navigator.userAgent;
     var UP = navigator.platform;
@@ -155,4 +155,4 @@
 
     window.Ton = __ton;
 
-})(typeof Ton !== "undefined" ? Ton : {});
+})(typeof Ton !== "undefined" ? Ton : {}, window);
