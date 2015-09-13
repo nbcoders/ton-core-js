@@ -30,7 +30,7 @@
  *		 ...
  * });
  */
-(function(ton) {
+(function(__ton, window) {
 	// Iterator
 	function forEach(obj, iterator, context) {
 		if (obj.length === +obj.length) {
@@ -188,6 +188,6 @@
 		}
 		return Ajax
 	})();
-	ton.Ajax = A;
-	window.Ton = ton;
-})(typeof Ton !== "undefined" ? Ton : {});
+	__ton.Ajax = A;
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);

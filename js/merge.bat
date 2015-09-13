@@ -1,1 +1,1 @@
-copy ton.core.*.js  ..\ton.core.js
+copy ton.head.js+ton.core.*.js+ton.footer.js ..\ton.core.js

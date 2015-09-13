@@ -1,7 +1,7 @@
 /***
  * some method for format date
  */
-(function(ton) {
+(function(__ton,window) {
 	var D = {};
 	//TODO should suport 24 and 12 
 	/**
@@ -42,6 +42,6 @@
 	D.getDate = function(str) {
 		return D.format(new Date(), str);
 	};
-	ton.Date = D;
-	window.Ton = ton;
-})(typeof Ton !== "undefined" ? Ton : {});
+	__ton.Date = D;
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {},window);
