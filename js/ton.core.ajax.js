@@ -1,6 +1,6 @@
 /**
- * JavaScript Ajax tool  base on https://github.com/snandy/io thanks
- *
+ * JavaScript Ajax tools of Ton  base on https://github.com/snandy/io thanks
+ * power by[young,by701]
  * 1,执行基本ajax请求,返回XMLHttpRequest
  * Ajax.request(url, {
  *	 async   	是否异步 true(默认)

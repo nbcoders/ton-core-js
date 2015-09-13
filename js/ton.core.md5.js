@@ -1,5 +1,9 @@
-/***
- * some easy method for md5
+/**
+ * JavaScript MD5 tools of Ton
+ * power by[young,by701]
+ * function call：Ton.MD5.xxx
+ * 1,Method comment
+ * func1(params);
  */
 (function(__ton, window) {
 	/**
