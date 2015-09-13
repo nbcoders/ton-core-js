@@ -6,7 +6,7 @@
  * func1(params);
  */
 (function(__ton, window) {
-	__ton.Utils = {
+	__ton.copy = {
 		copyToClipboard: function(txt) {
 			if (window.clipboardData) {
 				window.clipboardData.clearData();
