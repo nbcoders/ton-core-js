@@ -3,13 +3,22 @@
  * @todo 以下方法计划将全部改写。从UA迁移至特征检测
  * @contacts: Young, Cherishope
  */
-(function (ton) {
+(function (__ton) {
+
+    var UA = navigator.userAgent;
+    var UP = navigator.platform;
+
+    //prepared Feature Detection parameters;
+    var d = document.createElement("div");
+    d.innerHTML = "   <i>i</i>";
+    d.setAttribute("className", "t");
+
     //Successfully tested in: Firefox 0.8 - 41. Chrome 1.0 - 45. Opera 8.0 - 31. Safari 3.0 - 8. IE 6 - 11 (NOT Edge)
     //infomation from http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
-    ton.Browser = {
+    __ton.Browser = {
 
         // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
-        isOpera: !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0,
+        isOpera: !!window.opera || UA.indexOf(' OPR/') >= 0,
 
         //Feature detection. Firefox 1.0+
         isFirefox: typeof InstallTrigger !== 'undefined',
@@ -29,8 +38,6 @@
          * @const
          */
         isIE8e: (function () {
-            var d = document.createElement("div");
-            d.innerHTML = "   <i>i</i>";
             return d.firstChild.nodeType !== 3;
         })(),
 
@@ -42,8 +49,6 @@
          * @const
          */
         isIE7e: (function () {
-            var d = document.createElement("div");
-            d.setAttribute("className", "t");
             return d.className === "t";
         })(),
 
@@ -54,22 +59,19 @@
          * @const
          */
         isIE6: (function () {
-            document.createElement("nav").cloneNode(true).outerHTML === "<:nav></:nav>";
             //fix IE6 background image can not cache problem
             if (document.execCommad) {
                 document.execCommad('backgroundimagecache', false, false);
             }
+            return document.createElement("nav").cloneNode(true).outerHTML === "<:nav></:nav>";
         })(),
 
         //get IE version
         getIEVersion: function () {
 
             var v = 0;
-
             //if it is IE
-            if (!this.isIE) {
-                return v;
-            }
+            if (!this.isIE) { return v; }
 
             if (document.documentMode == 11) {
                 v = 11;
@@ -91,7 +93,7 @@
 
     }
 
-    ton.Device = {
+    __ton.Device = {
 
         //if touch device
         isTouchDevice: function () {
@@ -114,12 +116,12 @@
         //Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev>(KHTML, like Gecko) Chrome/<Chrome Rev> Safari/<WebKit Rev>
 
         isMobile: function () {
-            return navigator.userAgent.match(/Mobi/i);
+            return UA.match(/Mobi/i);
         },
 
         //this function is only used for Android Tablet
         isTablet: function () {
-            return navigator.userAgent.match(/Tablet/i);
+            return UA.match(/Tablet/i);
         },
 
         //apple device
@@ -129,28 +131,28 @@
 
         //android device
         isAndroidDevice: function () {
-            return navigator.userAgent.match(/Android/i);
+            return UA.match(/Android/i);
         },
 
         //navigator.platform iPhone device return "iPhone", iPad device return "iPad"
         //navigator.platform Linux and Android device will return "Linux aarch64"
         //navigator.platform Windows will return "Win32"
         isIPHONE: function () {
-            return navigator.platform.match(/iPhone/i);
+            return UP.match(/iPhone/i);
         },
         isIPOD: function () {
-            return navigator.platform.match(/iPod/i);
+            return UP.match(/iPod/i);
         },
         isIPAD: function () {
-            return navigator.platform.match(/iPad/i);
+            return UP.match(/iPad/i);
         },
 
         //if it is iPod or iPhone
         isAppleMobile: function () {
-            return navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i);
+            return UA.match(/iPhone/i) || UA.match(/iPod/i);
         }
     };
 
-    window.Ton = ton;
+    window.Ton = __ton;
 
 })(typeof Ton !== "undefined" ? Ton : {});
