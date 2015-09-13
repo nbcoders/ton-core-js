@@ -1,5 +1,9 @@
-/***
- * some method for format date
+/**
+ * JavaScript Date tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Date.xxx
+ * 1,Method comment
+ * func1(params);
  */
 (function(__ton,window) {
 	var D = {};

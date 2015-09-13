@@ -11,8 +11,8 @@
 (function(window) {
 
 /**
- * JavaScript Ajax tool  base on https://github.com/snandy/io thanks
- *
+ * JavaScript Ajax tools of Ton  base on https://github.com/snandy/io thanks
+ * power by[young,by701]
  * 1,执行基本ajax请求,返回XMLHttpRequest
  * Ajax.request(url, {
  *	 async   	是否异步 true(默认)
@@ -202,59 +202,79 @@
 	})();
 	__ton.Ajax = A;
 	window.Ton = __ton;
-})(typeof Ton !== "undefined" ? Ton : {}, window);﻿//数组操作
-TON.Arr = {
-    //去除数组重复项
-    uniqArray: function (arr) {
-        var a = [],
-        o = {},
-        i,
-        v,
-        cv, // corrected value
-        len = arr.length;
-
-        if (len < 2) {
-            return arr;
-        }
-
-        for (i = 0; i < len; i++) {
-            v = arr[i];
-            cv = 0 + v;
-            if (!o[cv]) {
-                a.push(v);
-                o[cv] = true;
-            }
-        }
-        return a;
-    },
-    shuffleArray:function(array){
-        for (var i = array.length - 1; i > 0; i--) {
-            var j = Math.floor(Math.random() * (i + 1));
-            var temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
-        return array;
-    },
-    getNElementFromArray:function(array, n){
-        var nArray = [], j;
-        var originalArray = array;
-        if (n > 0) {
-            for (var i = 0; i < n; ) {
-                j = Math.floor(Math.random() * (array.length));
-                if ($.inArray(array[j], nArray) < 0) {
-                    nArray.push(array[j]);
-                    i++;
-                }
-            }
-        }
-        return nArray;
-    }
-};
-/***
- * some easy method for base64
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript Array tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Array.xxx
+ * 1,去除数组重复项
+ * uniqArray(arr);
+ *
+ * 2,xxxxxxxx
+ * shuffleArray(arr);
  */
-(function(__ton) {
+(function(__ton, window) {
+	var Arr = {
+		//去除数组重复项
+		uniqArray: function(arr) {
+			var a = [],
+				o = {},
+				i,
+				v,
+				cv, // corrected value
+				len = arr.length;
+
+			if (len < 2) {
+				return arr;
+			}
+
+			for (i = 0; i < len; i++) {
+				v = arr[i];
+				cv = 0 + v;
+				if (!o[cv]) {
+					a.push(v);
+					o[cv] = true;
+				}
+			}
+			return a;
+		},
+		shuffleArray: function(array) {
+			for (var i = array.length - 1; i > 0; i--) {
+				var j = Math.floor(Math.random() * (i + 1));
+				var temp = array[i];
+				array[i] = array[j];
+				array[j] = temp;
+			}
+			return array;
+		},
+		getNElementFromArray: function(array, n) {
+			var nArray = [],
+				j;
+			var originalArray = array;
+			if (n > 0) {
+				for (var i = 0; i < n;) {
+					j = Math.floor(Math.random() * (array.length));
+					if ($.inArray(array[j], nArray) < 0) {
+						nArray.push(array[j]);
+						i++;
+					}
+				}
+			}
+			return nArray;
+		}
+	};
+	__ton.Array = Arr;
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);/**
+ * JavaScript Base64 tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Base64.xxx
+ * 1,bas464编码
+ * encode(str);
+ *
+ * 2，base64解码
+ * decode(str)
+ */
+(function(__ton, window) {
 	var b64 = {};
 	var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 	var base64DecodeChars = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
@@ -419,187 +439,209 @@ TON.Arr = {
 	__ton.Base64 = b64;
 	window.Ton = __ton;
 })(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
- * @description 特征检测
- * @todo 以下方法计划将全部改写。从UA迁移至特征检测
- * @contacts: Young, Cherishope
+ * JavaScript moduleName tools of Ton
+ * power by[young,by701]
+ * function call：Ton.moduleName.xxx
+ * 1,Method comment
+ * func1(params);
  */
+(function(__ton, window) {
 
-//Successfully tested in: Firefox 0.8 - 41. Chrome 1.0 - 45. Opera 8.0 - 31. Safari 3.0 - 8. IE 6 - 11 (NOT Edge)
-//infomation from http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
-TON.Browser = {
+	var UA = navigator.userAgent;
+	var UP = navigator.platform;
 
-    // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
-    isOpera: !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0,
+	//prepared Feature Detection parameters;
+	var d = document.createElement("div");
+	d.innerHTML = "   <i>i</i>";
+	d.setAttribute("className", "t");
 
-    //Feature detection. Firefox 1.0+
-    isFirefox: typeof InstallTrigger !== 'undefined',
+	//Successfully tested in: Firefox 0.8 - 41. Chrome 1.0 - 45. Opera 8.0 - 31. Safari 3.0 - 8. IE 6 - 11 (NOT Edge)
+	//infomation from http://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
+	__ton.Browser = {
 
-    //Feature detection. At least Safari 3+: "[object HTMLElementConstructor]"
-    isSafari: Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0,
+		// Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
+		isOpera: !!window.opera || UA.indexOf(' OPR/') >= 0,
 
-    //Feature detection. Chrome 1+
-    isChrome: !!window.chrome && !this.isOpera,
+		//Feature detection. Firefox 1.0+
+		isFirefox: typeof InstallTrigger !== 'undefined',
 
-    //Feature detection. At least IE6
-    isIE: false || !!document.documentMode,
+		//Feature detection. At least Safari 3+: "[object HTMLElementConstructor]"
+		isSafari: Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0,
 
-    /**
-     * @name IE8 and earlier, leadingWhitespace
-     * @description {Boolean} IE8- 会去掉开头的空格，所以 nodeType 不是 3（文本），即 IE8 & IE8- 中返回 true
-     * @const
-     */
-    isIE8e: (function () {
-        var d = document.createElement("div");
-        d.innerHTML = "   <i>i</i>";
-        return d.firstChild.nodeType !== 3;
-    })(),
+		//Feature detection. Chrome 1+
+		isChrome: !!window.chrome && !this.isOpera,
 
-    /**
-     * @name IE7 and earlier, getSetAttribute
-     * @description {Boolean} 利用设置 class 来测试 get/setAttribute('class', 'class') 方法是否被支持，
-     *     在 ie6/7 中不支持（使用 get/setAttribute('className', 'class')）
-     *     因此 ie6/7 中会返回 true，其他浏览器中返回 false
-     * @const
-     */
-    isIE7e: (function () {
-        var d = document.createElement("div");
-        d.setAttribute("className", "t");
-        return d.className === "t";
-    })(),
+		//Feature detection. At least IE6
+		isIE: false || !!document.documentMode,
 
-    /**
-     * @name html5Clone
-     * @description {Boolean} 判断创建一个 HTML5 元素是否会出现问题
-     *     IE6 为 false
-     * @const
-     */
-    isIE6: document.createElement("nav").cloneNode( true ).outerHTML === "<:nav></:nav>",
+		/**
+		 * @name IE8 and earlier, leadingWhitespace
+		 * @description {Boolean} IE8- 会去掉开头的空格，所以 nodeType 不是 3（文本），即 IE8 & IE8- 中返回 true
+		 * @const
+		 */
+		isIE8e: (function() {
+			return d.firstChild.nodeType !== 3;
+		})(),
 
-    //get IE version
-    getIEVersion: function () {
+		/**
+		 * @name IE7 and earlier, getSetAttribute
+		 * @description {Boolean} 利用设置 class 来测试 get/setAttribute('class', 'class') 方法是否被支持，
+		 *     在 ie6/7 中不支持（使用 get/setAttribute('className', 'class')）
+		 *     因此 ie6/7 中会返回 true，其他浏览器中返回 false
+		 * @const
+		 */
+		isIE7e: (function() {
+			return d.className === "t";
+		})(),
 
-        var d = document.createElement("div"),
-            v = 0,
-            a;
+		/**
+		 * @name html5Clone
+		 * @description {Boolean} 判断创建一个 HTML5 元素是否会出现问题
+		 *     IE6 为 false
+		 * @const
+		 */
+		isIE6: (function() {
+			//fix IE6 background image can not cache problem
+			if (document.execCommad) {
+				document.execCommad('backgroundimagecache', false, false);
+			}
+			return document.createElement("nav").cloneNode(true).outerHTML === "<:nav></:nav>";
+		})(),
 
-        d.setAttribute("className", "t");
-        d.innerHTML = "<i>i</i><a href='/a'>a</a>";
+		//get IE version
+		getIEVersion: function() {
 
-        //if it is IE
-        if (!this.isIE) {
-            return v;
-        }
+			var v = 0;
+			//if it is IE
+			if (!this.isIE) {
+				return v;
+			}
 
-        if (document.documentMode == 11) {
-            v = 11;
-        } else if ('WebSocket' in window) {
-            v = 10;
-        } else if ('HTMLElement' in window) {
-            v = 9;
-        } else if (this.isIE8e && !this.isIE7e) {
-            v = 8;
-        } else if (this.isIE7e && !this.isIE6) {
-            v = 7;
-        } else {
-            v = 6;
-            //fix IE6 background image can not cache problem
-            document.execCommad('backgroundimagecache', false, false);
-        }
+			if (document.documentMode == 11) {
+				v = 11;
+			} else if ('WebSocket' in window) {
+				v = 10;
+			} else if ('HTMLElement' in window) {
+				v = 9;
+			} else if (this.isIE8e && !this.isIE7e) {
+				v = 8;
+			} else if (this.isIE7e && !this.isIE6) {
+				v = 7;
+			} else if (this.isIE6) {
+				v = 6;
+			}
 
-        return v;
+			return v;
 
-    }
+		}
 
-}
+	}
 
-TON.Device = {
+	__ton.Device = {
 
-    //if touch device
-    isTouchDevice:function(){
-        return ('ontouchstart' in window) // works on most browsers
-            || ('onmsgesturechange' in window); // works on ie10
-    },
+		//if touch device
+		isTouchDevice: function() {
+			return ('ontouchstart' in window) // works on most browsers
+				|| ('onmsgesturechange' in window); // works on ie10
+		},
 
-    //if IE mobile device
-    isIEMobile:function(){
-        return !!(navigator.msPointerEnabled);
-    },
+		//if IE mobile device
+		isIEMobile: function() {
+			return !!(navigator.msPointerEnabled);
+		},
 
-    //if mobile device, this function is recomend by MDN
-    //if this mobile device means mobile phones, except tablets, like this
+		//if mobile device, this function is recomend by MDN
+		//if this mobile device means mobile phones, except tablets, like this
 
-    //Phone UA:
-    //Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>
+		//Phone UA:
+		//Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>
 
-    //Tablet UA:
-    //Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev>(KHTML, like Gecko) Chrome/<Chrome Rev> Safari/<WebKit Rev>
+		//Tablet UA:
+		//Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev>(KHTML, like Gecko) Chrome/<Chrome Rev> Safari/<WebKit Rev>
 
-    isMobile: function () {
-        return navigator.userAgent.match(/Mobi/i);
-    },
+		isMobile: function() {
+			return UA.match(/Mobi/i);
+		},
 
-    //this function is only used for Android Tablet
-    isTablet: function (){
-        return navigator.userAgent.match(/Tablet/i);
-    },
+		//this function is only used for Android Tablet
+		isTablet: function() {
+			return UA.match(/Tablet/i);
+		},
 
-    //apple device
-    isAppleDevice: function() {
-        return this.isIPHONE() || this.isIPOD() || this.isIPAD();
-    },
-    
-    //android device
-    isAndroidDevice: function() {
-        return navigator.userAgent.match(/Android/i);
-    },
+		//apple device
+		isAppleDevice: function() {
+			return this.isIPHONE() || this.isIPOD() || this.isIPAD();
+		},
 
-    //navigator.platform iPhone device return "iPhone", iPad device return "iPad"
-    //navigator.platform Linux and Android device will return "Linux aarch64"
-    //navigator.platform Windows will return "Win32"
-    isIPHONE:function(){
-        return navigator.platform.match(/iPhone/i);
-    },
-    isIPOD:function(){
-        return navigator.platform.match(/iPod/i);
-    },
-    isIPAD:function(){
-        return navigator.platform.match(/iPad/i);
-    },
+		//android device
+		isAndroidDevice: function() {
+			return UA.match(/Android/i);
+		},
 
-    //if it is iPod or iPhone
-    isAppleMobile:function(){
-        return navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i);
-    }
-};﻿TON.Cookie = {
-    //读取
-    get: function (name) {
-        var cookieStr = "; " + document.cookie + "; ";
-        var index = cookieStr.indexOf("; " + name + "=");
-        if (index != -1) {
-            var s = cookieStr.substring(index + name.length + 3, cookieStr.length);
-            return unescape(s.substring(0, s.indexOf("; ")));
-        } else {
-            return null;
-        }
-    },
-    set: function (name, value, days) {
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            var expires = "; expires=" + date.toGMTString();
-        }
-        else var expires = "";
-        document.cookie = name + "=" + value + expires + "; path=/";
-    },
-    del: function (name) {
-        var exp = new Date(new Date().getTime() - 1);
-        var s = this.get(name);
-        if (s != null) {
-            document.cookie = name + "=" + s + ";expires=" + exp.toGMTString() + ":path=/"
-        };
-    }
-};/***
- * some method for format date
+		//navigator.platform iPhone device return "iPhone", iPad device return "iPad"
+		//navigator.platform Linux and Android device will return "Linux aarch64"
+		//navigator.platform Windows will return "Win32"
+		isIPHONE: function() {
+			return UP.match(/iPhone/i);
+		},
+		isIPOD: function() {
+			return UP.match(/iPod/i);
+		},
+		isIPAD: function() {
+			return UP.match(/iPad/i);
+		},
+
+		//if it is iPod or iPhone
+		isAppleMobile: function() {
+			return UA.match(/iPhone/i) || UA.match(/iPod/i);
+		}
+	};
+
+	window.Ton = __ton;
+
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript Cookie tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Cookie.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	__ton.Cookie = {
+		//读取
+		get: function(name) {
+			var cookieStr = "; " + document.cookie + "; ";
+			var index = cookieStr.indexOf("; " + name + "=");
+			if (index != -1) {
+				var s = cookieStr.substring(index + name.length + 3, cookieStr.length);
+				return unescape(s.substring(0, s.indexOf("; ")));
+			} else {
+				return null;
+			}
+		},
+		set: function(name, value, days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+				var expires = "; expires=" + date.toGMTString();
+			} else var expires = "";
+			document.cookie = name + "=" + value + expires + "; path=/";
+		},
+		del: function(name) {
+			var exp = new Date(new Date().getTime() - 1);
+			var s = this.get(name);
+			if (s != null) {
+				document.cookie = name + "=" + s + ";expires=" + exp.toGMTString() + ":path=/"
+			};
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);/**
+ * JavaScript Date tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Date.xxx
+ * 1,Method comment
+ * func1(params);
  */
 (function(__ton,window) {
 	var D = {};
@@ -645,89 +687,122 @@ TON.Device = {
 	__ton.Date = D;
 	window.Ton = __ton;
 })(typeof Ton !== "undefined" ? Ton : {},window);
-﻿TON.Events = {
-    //阻止冒泡
-    stopBubble:function(e){
-        if ( e && e.stopPropagation ) {
-            e.stopPropagation();
-        }else {
-            window.event.cancelBubble = true;
-        }
-    }
-};﻿//JSON
-TON.JSON = {
-    isEmpty:function(o){
-        for (var i in o) {
-            return false
-        };
-        return true;
-    },
-    getLength:function(o){
-        var l = 0;
-        for (var i in o) {
-            if (o.hasOwnProperty(i)) {
-                l++;
-            }
-        };
-        return l;
-    }
-};﻿//本地存储支持IE6+,Chrome,FF
-TON.LocalData = {
-    hname: location.hostname ? location.hostname : 'localStatus',
-    isLocalStorage: window.localStorage ? true : false,
-    dataDom: null,
+﻿/**
+ * JavaScript Events tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Events.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	__ton.Events = {
+		//阻止冒泡
+		stopBubble: function(e) {
+			if (e && e.stopPropagation) {
+				e.stopPropagation();
+			} else {
+				window.event.cancelBubble = true;
+			}
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript moduleName tools of Ton
+ * power by[young,by701]
+ * function call：Ton.moduleName.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	__ton.JSON = {
+		isEmpty: function(o) {
+			for (var i in o) {
+				return false
+			};
+			return true;
+		},
+		getLength: function(o) {
+			var l = 0;
+			for (var i in o) {
+				if (o.hasOwnProperty(i)) {
+					l++;
+				}
+			};
+			return l;
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript moduleName tools of Ton
+ * power by[young,by701]
+ * function call：Ton.moduleName.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	//本地存储支持IE6+,Chrome,FF
+	__ton.LocalData = {
+		hname: location.hostname ? location.hostname : 'localStatus',
+		isLocalStorage: window.localStorage ? true : false,
+		dataDom: null,
 
-    initDom: function () { //初始化userData
-        if (!this.dataDom) {
-            try {
-                this.dataDom = document.createElement('input');//这里使用hidden的input元素
-                this.dataDom.type = 'hidden';
-                this.dataDom.style.display = "none";
-                this.dataDom.addBehavior('#default#userData');//这是userData的语法
-                document.body.appendChild(this.dataDom);
-                var exDate = new Date();
-                exDate = exDate.getDate() + 30;
-                this.dataDom.expires = exDate.toUTCString();//设定过期时间
-            } catch (ex) {
-                return false;
-            }
-        }
-        return true;
-    },
-    set: function (key, value) {
-        if (this.isLocalStorage) {
-            window.localStorage.setItem(key, value);
-        } else {
-            if (this.initDom()) {
-                this.dataDom.load(this.hname);
-                this.dataDom.setAttribute(key, value);
-                this.dataDom.save(this.hname)
-            }
-        }
-    },
-    get: function (key) {
-        if (this.isLocalStorage) {
-            return window.localStorage.getItem(key);
-        } else {
-            if (this.initDom()) {
-                this.dataDom.load(this.hname);
-                return this.dataDom.getAttribute(key);
-            }
-        }
-    },
-    remove: function (key) {
-        if (this.isLocalStorage) {
-            localStorage.removeItem(key);
-        } else {
-            if (this.initDom()) {
-                this.dataDom.load(this.hname);
-                this.dataDom.removeAttribute(key);
-                this.dataDom.save(this.hname)
-            }
-        }
-    }
-};/***
- * some easy method for md5
+		initDom: function() { //初始化userData
+			if (!this.dataDom) {
+				try {
+					this.dataDom = document.createElement('input'); //这里使用hidden的input元素
+					this.dataDom.type = 'hidden';
+					this.dataDom.style.display = "none";
+					this.dataDom.addBehavior('#default#userData'); //这是userData的语法
+					document.body.appendChild(this.dataDom);
+					var exDate = new Date();
+					exDate = exDate.getDate() + 30;
+					this.dataDom.expires = exDate.toUTCString(); //设定过期时间
+				} catch (ex) {
+					return false;
+				}
+			}
+			return true;
+		},
+		set: function(key, value) {
+			if (this.isLocalStorage) {
+				window.localStorage.setItem(key, value);
+			} else {
+				if (this.initDom()) {
+					this.dataDom.load(this.hname);
+					this.dataDom.setAttribute(key, value);
+					this.dataDom.save(this.hname)
+				}
+			}
+		},
+		get: function(key) {
+			if (this.isLocalStorage) {
+				return window.localStorage.getItem(key);
+			} else {
+				if (this.initDom()) {
+					this.dataDom.load(this.hname);
+					return this.dataDom.getAttribute(key);
+				}
+			}
+		},
+		remove: function(key) {
+			if (this.isLocalStorage) {
+				localStorage.removeItem(key);
+			} else {
+				if (this.initDom()) {
+					this.dataDom.load(this.hname);
+					this.dataDom.removeAttribute(key);
+					this.dataDom.save(this.hname)
+				}
+			}
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);/**
+ * JavaScript MD5 tools of Ton
+ * power by[young,by701]
+ * function call：Ton.MD5.xxx
+ * 1,Method comment
+ * func1(params);
  */
 (function(__ton, window) {
 	/**
@@ -965,274 +1040,341 @@ TON.LocalData = {
 	};
 	__ton.MD5 = M;
 	window.Ton = __ton;
-})(typeof Ton !== "undefined" ? Ton : {}, window);﻿//字符串操作
-TON.String = {
-    //去除左边和右边的空格,返回string
-    trim: function (str) {
-        return str.replace(/(^\s*)|(\s*$)/g, '');
-    },
-    //去除左边的空格，返回lstring
-    ltrim: function (str) {
-        return str.replace(/^\s*/g, '');
-    },
-    //去除右边的空格，返回rstring
-    rtrim: function (str) {
-        return str.replace(/\s*$/, '');
-    },
-    //判断字符串是否相等，返回bool
-    equals: function (str1, str2) {
-        return str1 == str2;
-    },
-    //判断忽略大小写比较两个字符串是否相等，返回bool
-    equalsIgnoreCase: function (str1, str2) {
-        return str1.toUpperCase() == str2.toUpperCase();
-    },
-    //将字符串转换为数组,两个参数：字符串，字符串分隔符
-    stringToArray: function (str, delimiter) {
-        return str.split(delimiter);
-    }
-};﻿TON.Template = {
-    cache: {},
-    tmpl: function (str, data) {
-        var fn = !/\W/.test(str) ?
-          this.cache[str] = this.cache[str] ||
-            tmpl(document.getElementById(str).innerHTML) :
-          new Function("obj",
-            "var p=[],print=function(){p.push.apply(p,arguments);};" +
-            "with(obj){p.push('" +
-            str
-              .replace(/[\r\t\n]/g, " ")
-              .split("<%").join("\t")
-              .replace(/((^|%>)[^\t]*)'/g, "$1\r")
-              .replace(/\t=(.*?)%>/g, "',$1,'")
-              .split("\t").join("');")
-              .split("%>").join("p.push('")
-              .split("\r").join("\\'")
-          + "');}return p.join('');");
-        return data ? fn(data) : fn;
-    }
-};﻿//类型判断（come from 《高质量的js》）
-TON.Type = {
-    //是否是数字,1或者"1"都通过
-    isNumber: function (s) {
-        return !isNaN(s);
-    },
-    isString: function (s) {
-        return typeof s === "string";
-    },
-    isBoolean: function (s) {
-        return typeof s === "boolean";
-    },
-    isFunction: function (s) {
-        return typeof s === "function";
-    },
-    isNull: function (s) {
-        return s === null;
-    },
-    isUndefined: function (s) {
-        return typeof s === "undefined";
-    },
-    //带有空格的字符串也为true
-    isEmpty: function (s) {
-        return /^\s*$/.test(s);
-    },
-    isArray: function (s) {
-        //jQuery code
-        //return Object.prototype.toString.call(obj) === '[object Array]';  
-        //《高质量的js》 code
-        return s instanceof Array;
-    }
-};﻿//URL Handle
-TON.Url = {
-    getURLParameter: function(param){
-        var url = window.location.search;
-        var reg = "/^.*[\\?|\\&]" + param + "\\=([^\\&]*)/";  
-        reg = eval(reg);
-        var ret = url.match(reg);
-        if (ret != null) {
-            return ret[1];
-        } else {
-            return "";
-        }
-    }
-};﻿TON.Utils = {
-    copyToClipboard:function(txt){
-        if(window.clipboardData){
-            window.clipboardData.clearData();  
-            window.clipboardData.setData("Text", txt);
-        }else{
-            window.prompt("您可以复制以下游戏地址", txt);  
-        }
-    }
-};﻿//表单验证
-TON.Validation = {
-    //判断是否是邮箱,返回bool
-    isEmail: function (str) {
-        var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-        return reg.test(str);
-    },
-    //中英文数字下划线1-16个字符
-    isAccount: function (str) {
-        var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]{1,16}$/;
-        //var reg = /^[a-zA-Z0-9_]{6,16}$/;
-        return reg.test(str);
-    },
-    //中英文数字下划线6-16个字符
-    isLoginAccount: function (str) {
-        var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]{6,16}$/;
-        //var reg = /^[a-zA-Z0-9_]{6,16}$/;
-        return reg.test(str);
-    },
-    //判断是否是邮编，判断3位数到12位数,并包含字母和空格，返回bool
-    isPost: function (str) {
-        var patrn = /^[a-zA-Z0-9 ]{3,12}$/;
-        if (!patrn.exec(str)) return false
-        return true
-    },
-    //校验手机号码：必须以数字开头,返回bool //00852验证香港区号
-    isMobile: function (str) {
-        //严格
-        //var patrn = /^(13[0-9]|15[012356789]|18[0-9]|14[57]|00852)[0-9]{8}$/;
-        //宽松
-        var patrn = /^(1)[0-9]{10}$/;
-        return patrn.test(str);
-    },
-    //校验普通电话、传真号码：可以“+”开头，除数字外，可含有“-”
-    isTel: function (str) {
-        var patrn = /^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/;
-        if (!patrn.exec(str)) return false;
-        return true;
-    },
-    //判断是否是QQ号码，返回bool
-    isQQ: function (str) {
-        return /^\d{5,11}$/.test(str);
-    },
-    //判断是否日期类型(例:2005-12-12)，返回bool
-    isDate: function (str) {
-        var reg = /^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))$/;
-        if (reg.test(str)) {
-            return true;
-        }
-        return false;
-    },
-    //判断是否是合法的身份证号，返回bool
-    isIdCardNo: function (num) {
-        //reg15  reg15=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
-        //reg18  reg18=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
-        //reg 综合15,18位量种，并可检测尾部X
-        var reg = /^(\d{6})(18|19|20)?(\d{2})([01]\d)([0123]\d)(\d{3})(\d|X)?$/;
-        if (reg.test(num)) {
-            return true;
-        }
-        return false;
-    },
-    //判断是否是合法IP，返回bool
-    isIP: function (str) {
-        var reg = /^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/;
-        if (reg.test(str)) {
-            return true;
-        }
-        return false;
-    },
-    //校验密码：只能输入6-15个字母、数字
-    isPasswd: function (s) {
-        var patrn = /^[a-zA-Z0-9]{6,15}$/;
-        if (!patrn.exec(s)) return false;
-        return true;
-    },
-    //判断判断是否中文,返回bool
-    isChinese: function (str) {
-        var str = str.replace(/(^\s*)|(\s*$)/g, '');
-        if (!(/^[\u4E00-\uFA29]*$/.test(str)
-                && (!/^[\uE7C7-\uE7F3]*$/.test(str)))) {
-            return false;
-        }
-        return true;
-    },
-    //1-16个中英文，不含数字
-    isChEn: function (s) {
-        var patrn = /^[a-zA-Z\u4E00-\u9FA5]{2,16}$/;
-        if (!patrn.exec(s)) return false;
-        return true;
-    },
-    //判断是否是一个图片格式的文件jpg|jpeg|png|swf|gif，返回bool
-    isImg: function (str) {
-        var objReg = new RegExp("[.]+(jpg|jpeg|png|swf|gif)$", "gi");
-        if (objReg.test(str)) {
-            return true;
-        }
-        return false;
-    },
-    //判断是否是整型,返回bool
-    isInteger: function (str) {
-        return /^-?\d+$/.test(str);
-    },
-    //判断是否是一个浮点数，返回bool
-    isFloat: function (str) {
-        return /^(-?\d+)(\.\d+)?$/.test(str);
-    }
-};﻿TON.WEIXIN = {
-    weixinCount:20,
-    hasWeixinAPI:false,
-    run:function(callback){
-        var that = this;
-        this.hasWeixinAPI = (typeof window.WeixinJSBridge == 'undefined' || typeof window.WeixinJSBridge.invoke == 'undefined') ? false : true;
-        if(this.weixinCount == 0) { return; };
-        if(!this.hasWeixinAPI){
-            this.weixinCount-- ;
-            setTimeout(function(){
-                that.run(callback);
-            },1000);
-        }else{
-            callback();
-        }
-    },
-    resetTimelineData:function(ObjData){
-        if (this.hasWeixinAPI) {
-            WeixinJSBridge.on("menu:share:timeline", function(){
-                WeixinJSBridge.invoke("shareTimeline",{
-                    "img_url":    ObjData.imgURL,
-                    "img_width":  ObjData.imgWidth,
-                    "img_height": ObjData.imgHeight,
-                    "link":       ObjData.appLink,
-                    "desc":       ObjData.appDesc,
-                    "title":      ObjData.appTitle
-                });
-            });
-        };
-    },
-    resetShareFriendsData:function(ObjData){
-        if (this.hasWeixinAPI) {
-            WeixinJSBridge.on('menu:share:appmessage', function(){
-                WeixinJSBridge.invoke('sendAppMessage',{
-                    "appid":     "",
-                    "img_url":   ObjData.imgURL,
-                    "img_width": ObjData.imgWidth,
-                    "img_height":ObjData.imgHeight,
-                    "link":      ObjData.appLink,
-                    "desc":      ObjData.appDesc,
-                    "title":     ObjData.appTitle
-                });
-            });
-        };
-    },
-    resetShareTXWeiboData:function(ObjData){
-        if (this.hasWeixinAPI) {
-            WeixinJSBridge.on('menu:share:weibo', function(){
-                WeixinJSBridge.invoke('shareWeibo',{
-                    "content":ObjData.appTitle+' '+ObjData.appLink,
-                    "url":ObjData.appLink
-                });
-            });
-        };
-    },
-    resetWXShareData:function(ObjData){
-        this.resetTimelineData(ObjData);
-        this.resetShareFriendsData(ObjData);
-        this.resetShareTXWeiboData(ObjData);
-    }
-};
-if (typeof define === "function" && define.amd) {
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript String tools of Ton
+ * power by[young,by701]
+ * function call：Ton.String.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	__ton.String = {
+		//去除左边和右边的空格,返回string
+		trim: function(str) {
+			return str.replace(/(^\s*)|(\s*$)/g, '');
+		},
+		//去除左边的空格，返回lstring
+		ltrim: function(str) {
+			return str.replace(/^\s*/g, '');
+		},
+		//去除右边的空格，返回rstring
+		rtrim: function(str) {
+			return str.replace(/\s*$/, '');
+		},
+		//判断字符串是否相等，返回bool
+		equals: function(str1, str2) {
+			return str1 == str2;
+		},
+		//判断忽略大小写比较两个字符串是否相等，返回bool
+		equalsIgnoreCase: function(str1, str2) {
+			return str1.toUpperCase() == str2.toUpperCase();
+		},
+		//将字符串转换为数组,两个参数：字符串，字符串分隔符
+		stringToArray: function(str, delimiter) {
+			return str.split(delimiter);
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript Template tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Template.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	__ton.Template = {
+		cache: {},
+		tmpl: function(str, data) {
+			var fn = !/\W/.test(str) ?
+				this.cache[str] = this.cache[str] ||
+				tmpl(document.getElementById(str).innerHTML) :
+				new Function("obj",
+					"var p=[],print=function(){p.push.apply(p,arguments);};" +
+					"with(obj){p.push('" +
+					str
+					.replace(/[\r\t\n]/g, " ")
+					.split("<%").join("\t")
+					.replace(/((^|%>)[^\t]*)'/g, "$1\r")
+					.replace(/\t=(.*?)%>/g, "',$1,'")
+					.split("\t").join("');")
+					.split("%>").join("p.push('")
+					.split("\r").join("\\'") + "');}return p.join('');");
+			return data ? fn(data) : fn;
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript Type tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Type.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	//类型判断（come from 《高质量的js》）
+	__ton.Type = {
+		//是否是数字,1或者"1"都通过
+		isNumber: function(s) {
+			return !isNaN(s);
+		},
+		isString: function(s) {
+			return typeof s === "string";
+		},
+		isBoolean: function(s) {
+			return typeof s === "boolean";
+		},
+		isFunction: function(s) {
+			return typeof s === "function";
+		},
+		isNull: function(s) {
+			return s === null;
+		},
+		isUndefined: function(s) {
+			return typeof s === "undefined";
+		},
+		//带有空格的字符串也为true
+		isEmpty: function(s) {
+			return /^\s*$/.test(s);
+		},
+		isArray: function(s) {
+			//jQuery code
+			//return Object.prototype.toString.call(obj) === '[object Array]';  
+			//《高质量的js》 code
+			return s instanceof Array;
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript Url tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Url.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	//URL Handle
+	__ton.Url = {
+		getURLParameter: function(param) {
+			var url = window.location.search;
+			var reg = "/^.*[\\?|\\&]" + param + "\\=([^\\&]*)/";
+			reg = eval(reg);
+			var ret = url.match(reg);
+			if (ret != null) {
+				return ret[1];
+			} else {
+				return "";
+			}
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript Utils tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Utils.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	__ton.Utils = {
+		copyToClipboard: function(txt) {
+			if (window.clipboardData) {
+				window.clipboardData.clearData();
+				window.clipboardData.setData("Text", txt);
+			} else {
+				window.prompt("您可以复制以下游戏地址", txt);
+			}
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript Validation tools of Ton
+ * power by[young,by701]
+ * function call：Ton.Validation.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	__ton.Validation = {
+		//判断是否是邮箱,返回bool
+		isEmail: function(str) {
+			var reg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+			return reg.test(str);
+		},
+		//中英文数字下划线1-16个字符
+		isAccount: function(str) {
+			var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]{1,16}$/;
+			//var reg = /^[a-zA-Z0-9_]{6,16}$/;
+			return reg.test(str);
+		},
+		//中英文数字下划线6-16个字符
+		isLoginAccount: function(str) {
+			var reg = /^[a-zA-Z0-9_\u4e00-\u9fa5]{6,16}$/;
+			//var reg = /^[a-zA-Z0-9_]{6,16}$/;
+			return reg.test(str);
+		},
+		//判断是否是邮编，判断3位数到12位数,并包含字母和空格，返回bool
+		isPost: function(str) {
+			var patrn = /^[a-zA-Z0-9 ]{3,12}$/;
+			if (!patrn.exec(str)) return false
+			return true
+		},
+		//校验手机号码：必须以数字开头,返回bool //00852验证香港区号
+		isMobile: function(str) {
+			//严格
+			//var patrn = /^(13[0-9]|15[012356789]|18[0-9]|14[57]|00852)[0-9]{8}$/;
+			//宽松
+			var patrn = /^(1)[0-9]{10}$/;
+			return patrn.test(str);
+		},
+		//校验普通电话、传真号码：可以“+”开头，除数字外，可含有“-”
+		isTel: function(str) {
+			var patrn = /^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/;
+			if (!patrn.exec(str)) return false;
+			return true;
+		},
+		//判断是否是QQ号码，返回bool
+		isQQ: function(str) {
+			return /^\d{5,11}$/.test(str);
+		},
+		//判断是否日期类型(例:2005-12-12)，返回bool
+		isDate: function(str) {
+			var reg = /^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))$/;
+			if (reg.test(str)) {
+				return true;
+			}
+			return false;
+		},
+		//判断是否是合法的身份证号，返回bool
+		isIdCardNo: function(num) {
+			//reg15  reg15=/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$/;
+			//reg18  reg18=/^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{4}$/;
+			//reg 综合15,18位量种，并可检测尾部X
+			var reg = /^(\d{6})(18|19|20)?(\d{2})([01]\d)([0123]\d)(\d{3})(\d|X)?$/;
+			if (reg.test(num)) {
+				return true;
+			}
+			return false;
+		},
+		//判断是否是合法IP，返回bool
+		isIP: function(str) {
+			var reg = /^((2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$/;
+			if (reg.test(str)) {
+				return true;
+			}
+			return false;
+		},
+		//校验密码：只能输入6-15个字母、数字
+		isPasswd: function(s) {
+			var patrn = /^[a-zA-Z0-9]{6,15}$/;
+			if (!patrn.exec(s)) return false;
+			return true;
+		},
+		//判断判断是否中文,返回bool
+		isChinese: function(str) {
+			var str = str.replace(/(^\s*)|(\s*$)/g, '');
+			if (!(/^[\u4E00-\uFA29]*$/.test(str) && (!/^[\uE7C7-\uE7F3]*$/.test(str)))) {
+				return false;
+			}
+			return true;
+		},
+		//1-16个中英文，不含数字
+		isChEn: function(s) {
+			var patrn = /^[a-zA-Z\u4E00-\u9FA5]{2,16}$/;
+			if (!patrn.exec(s)) return false;
+			return true;
+		},
+		//判断是否是一个图片格式的文件jpg|jpeg|png|swf|gif，返回bool
+		isImg: function(str) {
+			var objReg = new RegExp("[.]+(jpg|jpeg|png|swf|gif)$", "gi");
+			if (objReg.test(str)) {
+				return true;
+			}
+			return false;
+		},
+		//判断是否是整型,返回bool
+		isInteger: function(str) {
+			return /^-?\d+$/.test(str);
+		},
+		//判断是否是一个浮点数，返回bool
+		isFloat: function(str) {
+			return /^(-?\d+)(\.\d+)?$/.test(str);
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
+ * JavaScript WEIXIN tools of Ton
+ * power by[young,by701]
+ * function call：Ton.WEIXIN.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+(function(__ton, window) {
+	__ton.WEIXIN = {
+		weixinCount: 20,
+		hasWeixinAPI: false,
+		run: function(callback) {
+			var that = this;
+			this.hasWeixinAPI = (typeof window.WeixinJSBridge == 'undefined' || typeof window.WeixinJSBridge.invoke == 'undefined') ? false : true;
+			if (this.weixinCount == 0) {
+				return;
+			};
+			if (!this.hasWeixinAPI) {
+				this.weixinCount--;
+				setTimeout(function() {
+					that.run(callback);
+				}, 1000);
+			} else {
+				callback();
+			}
+		},
+		resetTimelineData: function(ObjData) {
+			if (this.hasWeixinAPI) {
+				WeixinJSBridge.on("menu:share:timeline", function() {
+					WeixinJSBridge.invoke("shareTimeline", {
+						"img_url": ObjData.imgURL,
+						"img_width": ObjData.imgWidth,
+						"img_height": ObjData.imgHeight,
+						"link": ObjData.appLink,
+						"desc": ObjData.appDesc,
+						"title": ObjData.appTitle
+					});
+				});
+			};
+		},
+		resetShareFriendsData: function(ObjData) {
+			if (this.hasWeixinAPI) {
+				WeixinJSBridge.on('menu:share:appmessage', function() {
+					WeixinJSBridge.invoke('sendAppMessage', {
+						"appid": "",
+						"img_url": ObjData.imgURL,
+						"img_width": ObjData.imgWidth,
+						"img_height": ObjData.imgHeight,
+						"link": ObjData.appLink,
+						"desc": ObjData.appDesc,
+						"title": ObjData.appTitle
+					});
+				});
+			};
+		},
+		resetShareTXWeiboData: function(ObjData) {
+			if (this.hasWeixinAPI) {
+				WeixinJSBridge.on('menu:share:weibo', function() {
+					WeixinJSBridge.invoke('shareWeibo', {
+						"content": ObjData.appTitle + ' ' + ObjData.appLink,
+						"url": ObjData.appLink
+					});
+				});
+			};
+		},
+		resetWXShareData: function(ObjData) {
+			this.resetTimelineData(ObjData);
+			this.resetShareFriendsData(ObjData);
+			this.resetShareTXWeiboData(ObjData);
+		}
+	};
+	window.Ton = __ton;
+})(typeof Ton !== "undefined" ? Ton : {}, window);if (typeof define === "function" && define.amd) {
 	define("Ton", [], function() {
 		var obj = window.Ton;
 		window.Ton = undefined;

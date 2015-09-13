@@ -1,8 +1,10 @@
-﻿/*!
- * jQuery Cookie Plugin v1.4.1 *
- * Copyright 2013 TON
- * Released under the MIT license
- */
+/**
+* jQuery Cookie Plugin v1.4.1 * tools of Ton
+* power by[young,by701]
+* function call：$.cookie & $.removeCookie
+* this plugin must depend on jQuery
+* Released under the MIT license
+*/
 
 (function (factory) {
     if (typeof define === 'function' && define.amd) {
