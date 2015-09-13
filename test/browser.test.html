@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="../js/ton.core.browser.js"></script>
+
+</head>
+<body>
+	<h1>Your Browser is <span id="browser"></span></h1>
+	
+    <script type="text/javascript">
+
+        var browserType = "";
+
+        if (Ton.Browser.isChrome) {
+            browserType = "Chrome";
+        } else if (Ton.Browser.isFirefox) {
+            browserType = "Firefox";
+        } else if (Ton.Browser.isIE) {
+            browserType = "Internet Explore";
+
+            var version = Ton.Browser.getIEVersion();
+
+            browserType = browserType + version;
+        }
+
+		document.getElementById("browser").innerHTML = browserType;
+    </script>
+</body>
+</html>
