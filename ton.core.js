@@ -1,12 +1,7 @@
-/***
- * ton.core.js 动态生成
- * 这里是注释
- * 这里是注释
- * 这里是注释
- * 这里是注释
- * 这里是注释
- * 这里是注释
- * 这里是注释
+/**
+ * ton.core.js
+ * power by[young,by701]
+ * http:tonjs.nbcoders.com
  */
 (function(window) {
 
@@ -445,6 +440,7 @@
  * 1,Method comment
  * func1(params);
  */
+
 (function(__ton, window) {
 
 	var UA = navigator.userAgent;
@@ -537,102 +533,142 @@
 
 	}
 
-	__ton.Device = {
-
-		//if touch device
-		isTouchDevice: function() {
-			return ('ontouchstart' in window) // works on most browsers
-				|| ('onmsgesturechange' in window); // works on ie10
-		},
-
-		//if IE mobile device
-		isIEMobile: function() {
-			return !!(navigator.msPointerEnabled);
-		},
-
-		//if mobile device, this function is recomend by MDN
-		//if this mobile device means mobile phones, except tablets, like this
-
-		//Phone UA:
-		//Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>
-
-		//Tablet UA:
-		//Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev>(KHTML, like Gecko) Chrome/<Chrome Rev> Safari/<WebKit Rev>
-
-		isMobile: function() {
-			return UA.match(/Mobi/i);
-		},
-
-		//this function is only used for Android Tablet
-		isTablet: function() {
-			return UA.match(/Tablet/i);
-		},
-
-		//apple device
-		isAppleDevice: function() {
-			return this.isIPHONE() || this.isIPOD() || this.isIPAD();
-		},
-
-		//android device
-		isAndroidDevice: function() {
-			return UA.match(/Android/i);
-		},
-
-		//navigator.platform iPhone device return "iPhone", iPad device return "iPad"
-		//navigator.platform Linux and Android device will return "Linux aarch64"
-		//navigator.platform Windows will return "Win32"
-		isIPHONE: function() {
-			return UP.match(/iPhone/i);
-		},
-		isIPOD: function() {
-			return UP.match(/iPod/i);
-		},
-		isIPAD: function() {
-			return UP.match(/iPad/i);
-		},
-
-		//if it is iPod or iPhone
-		isAppleMobile: function() {
-			return UA.match(/iPhone/i) || UA.match(/iPod/i);
-		}
-	};
-
 	window.Ton = __ton;
 
-})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
- * JavaScript Cookie tools of Ton
+})(typeof Ton !== "undefined" ? Ton : {}, window);
+/**
+* jQuery Cookie Plugin v1.4.1 * tools of Ton
+* power by[young,by701]
+* function call：$.cookie & $.removeCookie
+* this plugin must depend on jQuery
+* Released under the MIT license
+*/
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // CommonJS
+        factory(require('jquery'));
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
+
+    var pluses = /\+/g;
+
+    function encode(s) {
+        return config.raw ? s : encodeURIComponent(s);
+    }
+
+    function decode(s) {
+        return config.raw ? s : decodeURIComponent(s);
+    }
+
+    function stringifyCookieValue(value) {
+        return encode(config.json ? JSON.stringify(value) : String(value));
+    }
+
+    function parseCookieValue(s) {
+        if (s.indexOf('"') === 0) {
+            // This is a quoted cookie as according to RFC2068, unescape...
+            s = s.slice(1, -1).replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+        }
+
+        try {
+            // Replace server-side written pluses with spaces.
+            // If we can't decode the cookie, ignore it, it's unusable.
+            // If we can't parse the cookie, ignore it, it's unusable.
+            s = decodeURIComponent(s.replace(pluses, ' '));
+            return config.json ? JSON.parse(s) : s;
+        } catch (e) { }
+    }
+
+    function read(s, converter) {
+        var value = config.raw ? s : parseCookieValue(s);
+        return $.isFunction(converter) ? converter(value) : value;
+    }
+
+    var config = $.cookie = function (key, value, options) {
+
+        // Write
+
+        if (value !== undefined && !$.isFunction(value)) {
+            options = $.extend({}, config.defaults, options);
+
+            if (typeof options.expires === 'number') {
+                var days = options.expires, t = options.expires = new Date();
+                t.setTime(+t + days * 864e+5);
+            }
+
+            return (document.cookie = [
+				encode(key), '=', stringifyCookieValue(value),
+				options.expires ? '; expires=' + options.expires.toUTCString() : '', // use expires attribute, max-age is not supported by IE
+				options.path ? '; path=' + options.path : '',
+				options.domain ? '; domain=' + options.domain : '',
+				options.secure ? '; secure' : ''
+            ].join(''));
+        }
+
+        // Read
+
+        var result = key ? undefined : {};
+
+        // To prevent the for loop in the first place assign an empty array
+        // in case there are no cookies at all. Also prevents odd result when
+        // calling $.cookie().
+        var cookies = document.cookie ? document.cookie.split('; ') : [];
+
+        for (var i = 0, l = cookies.length; i < l; i++) {
+            var parts = cookies[i].split('=');
+            var name = decode(parts.shift());
+            var cookie = parts.join('=');
+
+            if (key && key === name) {
+                // If second argument (value) is a function it's a converter...
+                result = read(cookie, value);
+                break;
+            }
+
+            // Prevent storing a cookie that we couldn't decode.
+            if (!key && (cookie = read(cookie)) !== undefined) {
+                result[name] = cookie;
+            }
+        }
+
+        return result;
+    };
+
+    config.defaults = {};
+
+    $.removeCookie = function (key, options) {
+        if ($.cookie(key) === undefined) {
+            return false;
+        }
+
+        // Must not alter options, thus extending a fresh object...
+        $.cookie(key, '', $.extend({}, options, { expires: -1 }));
+        return !$.cookie(key);
+    };
+
+}));﻿/**
+ * JavaScript Utils tools of Ton
  * power by[young,by701]
- * function call：Ton.Cookie.xxx
+ * function call：Ton.Utils.xxx
  * 1,Method comment
  * func1(params);
  */
 (function(__ton, window) {
-	__ton.Cookie = {
-		//读取
-		get: function(name) {
-			var cookieStr = "; " + document.cookie + "; ";
-			var index = cookieStr.indexOf("; " + name + "=");
-			if (index != -1) {
-				var s = cookieStr.substring(index + name.length + 3, cookieStr.length);
-				return unescape(s.substring(0, s.indexOf("; ")));
+	__ton.copy = {
+		copyToClipboard: function(txt) {
+			if (window.clipboardData) {
+				window.clipboardData.clearData();
+				window.clipboardData.setData("Text", txt);
 			} else {
-				return null;
+				window.prompt("您可以复制以下游戏地址", txt);
 			}
-		},
-		set: function(name, value, days) {
-			if (days) {
-				var date = new Date();
-				date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-				var expires = "; expires=" + date.toGMTString();
-			} else var expires = "";
-			document.cookie = name + "=" + value + expires + "; path=/";
-		},
-		del: function(name) {
-			var exp = new Date(new Date().getTime() - 1);
-			var s = this.get(name);
-			if (s != null) {
-				document.cookie = name + "=" + s + ";expires=" + exp.toGMTString() + ":path=/"
-			};
 		}
 	};
 	window.Ton = __ton;
@@ -688,6 +724,82 @@
 	window.Ton = __ton;
 })(typeof Ton !== "undefined" ? Ton : {},window);
 ﻿/**
+ * JavaScript moduleName tools of Ton
+ * power by[young,by701]
+ * function call：Ton.moduleName.xxx
+ * 1,Method comment
+ * func1(params);
+ */
+
+(function (__ton, window) {
+
+    var UA = navigator.userAgent;
+    var UP = navigator.platform;
+
+    __ton.Device = {
+
+        //if touch device
+        isTouchDevice: function () {
+            return ('ontouchstart' in window) // works on most browsers
+				|| ('onmsgesturechange' in window); // works on ie10
+        },
+
+        //if IE mobile device
+        isIEMobile: function () {
+            return !!(navigator.msPointerEnabled);
+        },
+
+        //if mobile device, this function is recomend by MDN
+        //if this mobile device means mobile phones, except tablets, like this
+
+        //Phone UA:
+        //Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev> (KHTML, like Gecko) Chrome/<Chrome Rev> Mobile Safari/<WebKit Rev>
+
+        //Tablet UA:
+        //Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev>(KHTML, like Gecko) Chrome/<Chrome Rev> Safari/<WebKit Rev>
+
+        isMobile: function () {
+            return UA.match(/Mobi/i);
+        },
+
+        //this function is only used for Android Tablet
+        isTablet: function () {
+            return UA.match(/Tablet/i);
+        },
+
+        //apple device
+        isAppleDevice: function () {
+            return this.isIPHONE() || this.isIPOD() || this.isIPAD();
+        },
+
+        //android device
+        isAndroidDevice: function () {
+            return UA.match(/Android/i);
+        },
+
+        //navigator.platform iPhone device return "iPhone", iPad device return "iPad"
+        //navigator.platform Linux and Android device will return "Linux aarch64"
+        //navigator.platform Windows will return "Win32"
+        isIPHONE: function () {
+            return UP.match(/iPhone/i);
+        },
+        isIPOD: function () {
+            return UP.match(/iPod/i);
+        },
+        isIPAD: function () {
+            return UP.match(/iPad/i);
+        },
+
+        //if it is iPod or iPhone
+        isAppleMobile: function () {
+            return UA.match(/iPhone/i) || UA.match(/iPod/i);
+        }
+    };
+
+    window.Ton = __ton;
+
+})(typeof Ton !== "undefined" ? Ton : {}, window);
+﻿/**
  * JavaScript Events tools of Ton
  * power by[young,by701]
  * function call：Ton.Events.xxx
@@ -707,9 +819,9 @@
 	};
 	window.Ton = __ton;
 })(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
- * JavaScript moduleName tools of Ton
+ * JavaScript JSON tools of Ton
  * power by[young,by701]
- * function call：Ton.moduleName.xxx
+ * function call：Ton.JSON.xxx
  * 1,Method comment
  * func1(params);
  */
@@ -733,9 +845,9 @@
 	};
 	window.Ton = __ton;
 })(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
- * JavaScript moduleName tools of Ton
+ * JavaScript LocalData tools of Ton
  * power by[young,by701]
- * function call：Ton.moduleName.xxx
+ * function call：Ton.LocalData.xxx
  * 1,Method comment
  * func1(params);
  */
@@ -1164,25 +1276,6 @@
 				return ret[1];
 			} else {
 				return "";
-			}
-		}
-	};
-	window.Ton = __ton;
-})(typeof Ton !== "undefined" ? Ton : {}, window);﻿/**
- * JavaScript Utils tools of Ton
- * power by[young,by701]
- * function call：Ton.Utils.xxx
- * 1,Method comment
- * func1(params);
- */
-(function(__ton, window) {
-	__ton.Utils = {
-		copyToClipboard: function(txt) {
-			if (window.clipboardData) {
-				window.clipboardData.clearData();
-				window.clipboardData.setData("Text", txt);
-			} else {
-				window.prompt("您可以复制以下游戏地址", txt);
 			}
 		}
 	};

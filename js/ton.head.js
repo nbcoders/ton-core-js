@@ -1,12 +1,7 @@
-/***
- * ton.core.js 动态生成
- * 这里是注释
- * 这里是注释
- * 这里是注释
- * 这里是注释
- * 这里是注释
- * 这里是注释
- * 这里是注释
+/**
+ * ton.core.js
+ * power by[young,by701]
+ * http:tonjs.nbcoders.com
  */
 (function(window) {
 
