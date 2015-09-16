@@ -29,26 +29,26 @@
         //Tablet UA:
         //Mozilla/5.0 (Linux; <Android Version>; <Build Tag etc.>) AppleWebKit/<WebKit Rev>(KHTML, like Gecko) Chrome/<Chrome Rev> Safari/<WebKit Rev>
 
-        isMobile: UA.match(/Mobi/i),
+        isMobile: /Mobi/i.test(UA),
 
         //this function is only used for Android Tablet
-        isTablet: UA.match(/Tablet/i),
+        isTablet: /Tablet/i.test(UA),
 
         //apple device
         isAppleDevice: this.isIPHONE() || this.isIPOD() || this.isIPAD(),
 
         //android device
-        isAndroidDevice: UA.match(/Android/i),
+        isAndroidDevice: /Android/i.test(UA),
 
         //navigator.platform iPhone device return "iPhone", iPad device return "iPad"
         //navigator.platform Linux and Android device will return "Linux aarch64"
         //navigator.platform Windows will return "Win32"
-        isIPHONE: UP.match(/iPhone/i),
-        isIPOD: UP.match(/iPod/i),
-        isIPAD: UP.match(/iPad/i),
+        isIPHONE: /iPhone/i.test(UP),
+        isIPOD: /iPod/i.test(UP),
+        isIPAD: /iPad/i.test(UP),
 
         //if it is iPod or iPhone
-        isAppleMobile: UA.match(/iPhone/i) || UA.match(/iPod/i)
+        isAppleMobile: /iPhone/i.test(UA) || /iPod/i.test(UA)
     };
 
     window.Ton = __ton;
