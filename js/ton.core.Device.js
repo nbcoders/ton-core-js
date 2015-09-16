@@ -35,7 +35,7 @@
         isTablet: /Tablet/i.test(UA),
 
         //apple device
-        isAppleDevice: this.isIPHONE() || this.isIPOD() || this.isIPAD(),
+        isAppleDevice: this.isIPHONE || this.isIPOD || this.isIPAD,
 
         //android device
         isAndroidDevice: /Android/i.test(UA),
