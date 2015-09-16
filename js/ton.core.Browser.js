@@ -40,9 +40,7 @@
 		 * @description {Boolean} IE8- 会去掉开头的空格，所以 nodeType 不是 3（文本），即 IE8 & IE8- 中返回 true
 		 * @const
 		 */
-		isIE8e: (function() {
-			return d.firstChild.nodeType !== 3;
-		})(),
+		isIE8e: d.firstChild.nodeType !== 3,
 
 		/**
 		 * @name IE7 and earlier, getSetAttribute
@@ -51,9 +49,7 @@
 		 *     因此 ie6/7 中会返回 true，其他浏览器中返回 false
 		 * @const
 		 */
-		isIE7e: (function() {
-			return d.className === "t";
-		})(),
+		isIE7e: d.className === "t",
 
 		/**
 		 * @name html5Clone
