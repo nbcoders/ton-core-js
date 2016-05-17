@@ -110,6 +110,11 @@
 		//判断是否是一个浮点数，返回bool
 		isFloat: function(str) {
 			return /^(-?\d+)(\.\d+)?$/.test(str);
+		},
+		//验证url拼写
+		isUrl: function(str) {
+            		var reg = /^((http|https|ftp):\/\/)?(\w(\:\w)?@)?([0-9a-z_-]+\.)*?([a-z0-9-]+\.[a-z]{2,6}(\.[a-z]{2})?(\:[0-9]{2,6})?)((\/[^?#<>\/\\*":]*)+(\?[^#]*)?(#.*)?)?$/i;
+            		return reg.test(str);
 		}
 	};
 	window.Ton = __ton;
