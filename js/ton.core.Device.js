@@ -38,8 +38,9 @@
         isAppleDevice: this.isIPHONE || this.isIPOD || this.isIPAD,
 
         //android device
-        isAndroidDevice: /Android/i.test(UA),
-
+        //Sumsung and HuaWei has remove the Version letter from UA since Android 7.0 
+        //isAndroidDevice: ((UA.indexOf('Mozilla/5.0') > -1 && UA.indexOf('Android ') > -1 && UA.indexOf('AppleWebKit') > -1) && (UA.indexOf('Version') > -1)),
+        isAndroidDevice: ((UA.indexOf('Mozilla/5.0') > -1 && UA.indexOf('Android ') > -1 && UA.indexOf('AppleWebKit') > -1))
         //navigator.platform iPhone device return "iPhone", iPad device return "iPad"
         //navigator.platform Linux and Android device will return "Linux aarch64"
         //navigator.platform Windows will return "Win32"
