@@ -39,7 +39,11 @@
 
         //android device
         //Sumsung and HuaWei has remove the Version letter from UA since Android 7.0 
-        //isAndroidDevice: ((UA.indexOf('Mozilla/5.0') > -1 && UA.indexOf('Android ') > -1 && UA.indexOf('AppleWebKit') > -1) && (UA.indexOf('Version') > -1)),
+        //deplicated: isAndroidDevice: ((UA.indexOf('Mozilla/5.0') > -1 && UA.indexOf('Android ') > -1 && UA.indexOf('AppleWebKit') > -1) && (UA.indexOf('Version') > -1)),
+        
+        //Sumsung UA: Mozilla/5.0 (Linux; Android 7.0; SAMSUNG SM-G930F Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/5.4 Chrome/51.0.2403.133 Mobile Safari/537.36
+        //Xiaomi  UA: Mozilla/5.0 (Linux; Android 7.0; MI 5 Build/MRA58K) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/53.0.2490.76 Mobile Safari/537.36
+        //Huawei  UA: Mozilla/5.0 (Linux; Android 7.0; KNT-AL20 Build/HUAWEIKNT-AL20; xx-xx) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/56.0.2924.87 Mobile Safari/537.36
         isAndroidDevice: ((UA.indexOf('Mozilla/5.0') > -1 && UA.indexOf('Android ') > -1 && UA.indexOf('AppleWebKit') > -1))
         //navigator.platform iPhone device return "iPhone", iPad device return "iPad"
         //navigator.platform Linux and Android device will return "Linux aarch64"
